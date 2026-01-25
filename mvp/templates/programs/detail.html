@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ program.title }} - 지혜나눔터</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #4A90D9 0%, #5BA3E0 100%); }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <nav class="gradient-bg text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <a href="/" class="flex items-center space-x-2">
+                    <span class="text-3xl">🎓</span>
+                    <span class="text-xl font-bold">지혜나눔터</span>
+                </a>
+                <div class="flex space-x-6">
+                    <a href="/programs" class="hover:text-yellow-200 transition">프로그램</a>
+                    <a href="/mentors" class="hover:text-yellow-200 transition">어르신 멘토</a>
+                    <a href="/admin" class="bg-white/20 px-4 py-1 rounded-full hover:bg-white/30 transition">관리자</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto px-4 py-12">
+        <!-- 뒤로가기 -->
+        <a href="/programs" class="inline-flex items-center text-blue-600 hover:text-blue-800 mb-6">
+            ← 프로그램 목록으로
+        </a>
+
+        <!-- 메인 카드 -->
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+            <!-- 헤더 -->
+            <div class="h-56 gradient-bg flex items-center justify-center">
+                <span class="text-9xl">{{ program.image_emoji }}</span>
+            </div>
+
+            <div class="p-8">
+                <!-- 제목 영역 -->
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full mb-3">{{ program.category }}</span>
+                        <h1 class="text-3xl font-bold">{{ program.title }}</h1>
+                    </div>
+                    <span class="text-lg {% if program.status == '모집중' %}text-green-600 bg-green-100{% else %}text-gray-600 bg-gray-100{% endif %} px-4 py-2 rounded-full font-medium">
+                        {{ program.status }}
+                    </span>
+                </div>
+
+                <!-- 멘토 정보 -->
+                <a href="/mentors/{{ program.mentor.id }}" class="flex items-center p-4 bg-amber-50 rounded-xl mb-6 hover:bg-amber-100 transition">
+                    <span class="text-5xl mr-4">{{ program.mentor.profile_image }}</span>
+                    <div>
+                        <p class="font-bold text-lg">{{ program.mentor.name }} 선생님</p>
+                        <p class="text-gray-600">{{ program.mentor.expertise }} | 경력 {{ program.mentor.experience_years }}년</p>
+                        <p class="text-gray-500 text-sm">{{ program.mentor.location }}</p>
+                    </div>
+                </a>
+
+                <!-- 프로그램 설명 -->
+                <div class="mb-8">
+                    <h2 class="text-xl font-bold mb-3">📖 프로그램 소개</h2>
+                    <p class="text-gray-700 leading-relaxed">{{ program.description }}</p>
+                </div>
+
+                <!-- 상세 정보 -->
+                <div class="grid md:grid-cols-2 gap-4 mb-8">
+                    <div class="bg-gray-50 rounded-xl p-4">
+                        <div class="flex items-center text-gray-600 mb-2">
+                            <span class="text-xl mr-2">📍</span>
+                            <span class="font-medium">장소</span>
+                        </div>
+                        <p class="text-lg">{{ program.location }}</p>
+                    </div>
+                    <div class="bg-gray-50 rounded-xl p-4">
+                        <div class="flex items-center text-gray-600 mb-2">
+                            <span class="text-xl mr-2">🕐</span>
+                            <span class="font-medium">일정</span>
+                        </div>
+                        <p class="text-lg">{{ program.schedule }}</p>
+                    </div>
+                    <div class="bg-gray-50 rounded-xl p-4">
+                        <div class="flex items-center text-gray-600 mb-2">
+                            <span class="text-xl mr-2">👥</span>
+                            <span class="font-medium">정원</span>
+                        </div>
+                        <p class="text-lg">{{ program.current_students }} / {{ program.max_students }}명</p>
+                        <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                            <div class="bg-blue-600 h-2 rounded-full" style="width: {{ (program.current_students / program.max_students * 100)|int }}%"></div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-xl p-4">
+                        <div class="flex items-center text-gray-600 mb-2">
+                            <span class="text-xl mr-2">📜</span>
+                            <span class="font-medium">인정 학점</span>
+                        </div>
+                        <p class="text-lg">{{ program.credit_hours }}학점</p>
+                    </div>
+                </div>
+
+                <!-- 수강 신청 폼 -->
+                {% if program.status == '모집중' and program.current_students < program.max_students %}
+                <div class="border-t pt-8">
+                    <h2 class="text-xl font-bold mb-4">✍️ 수강 신청</h2>
+                    <form action="/programs/{{ program.id }}/enroll" method="POST" class="space-y-4">
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">이름</label>
+                                <input type="text" name="name" required class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg" placeholder="홍길동">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">학번</label>
+                                <input type="text" name="student_id" required class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg" placeholder="20210001">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">연락처</label>
+                                <input type="tel" name="phone" required class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg" placeholder="010-1234-5678">
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full gradient-bg text-white py-4 rounded-xl font-bold text-lg hover:opacity-90 transition">
+                            수강 신청하기
+                        </button>
+                    </form>
+                </div>
+                {% elif program.current_students >= program.max_students %}
+                <div class="border-t pt-8 text-center">
+                    <div class="bg-red-50 text-red-600 py-6 rounded-xl">
+                        <span class="text-4xl block mb-2">😢</span>
+                        <p class="text-xl font-bold">정원이 마감되었습니다</p>
+                        <p class="text-sm mt-2">다음 기수를 기다려 주세요</p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="max-w-6xl mx-auto px-4 text-center text-gray-400">
+            <p>지혜나눔터 | 국립경국대학교 G-AFC 고령친화사업단</p>
+        </div>
+    </footer>
+</body>
+</html>

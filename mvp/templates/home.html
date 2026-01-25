@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지혜나눔터 - 어르신이 선생님이 되는 세대교류 플랫폼</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #4A90D9 0%, #5BA3E0 100%); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 12px 40px rgba(74, 144, 217, 0.2); }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- 네비게이션 -->
+    <nav class="gradient-bg text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <a href="/" class="flex items-center space-x-2">
+                    <span class="text-3xl">🎓</span>
+                    <span class="text-xl font-bold">지혜나눔터</span>
+                </a>
+                <div class="flex space-x-6">
+                    <a href="/programs" class="hover:text-yellow-200 transition">프로그램</a>
+                    <a href="/mentors" class="hover:text-yellow-200 transition">어르신 멘토</a>
+                    <a href="/mentors/register" class="hover:text-yellow-200 transition">멘토 등록</a>
+                    <a href="/admin" class="bg-white/20 px-4 py-1 rounded-full hover:bg-white/30 transition">관리자</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 히어로 섹션 -->
+    <section class="gradient-bg text-white py-20">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <h1 class="text-5xl font-bold mb-6">
+                어르신의 지혜가<br>다음 세대로 이어집니다
+            </h1>
+            <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+                50년 경력 할머니의 안동찜닭 비법, 40년 농사꾼 할아버지의 텃밭 노하우.<br>
+                교과서에 없는 진짜 배움이 여기 있습니다.
+            </p>
+            <div class="flex justify-center space-x-4">
+                <a href="/programs" class="bg-yellow-400 text-gray-900 px-8 py-3 rounded-full font-bold hover:bg-yellow-300 transition text-lg">
+                    프로그램 둘러보기
+                </a>
+                <a href="/mentors/register" class="bg-white/20 px-8 py-3 rounded-full font-bold hover:bg-white/30 transition text-lg">
+                    멘토로 참여하기
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 통계 섹션 -->
+    <section class="py-12 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-4 gap-8 text-center">
+                <div class="p-6">
+                    <div class="text-4xl font-bold text-blue-600">{{ stats.mentors }}명</div>
+                    <div class="text-gray-600 mt-2">어르신 멘토</div>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl font-bold text-blue-600">{{ stats.programs }}개</div>
+                    <div class="text-gray-600 mt-2">개설 프로그램</div>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl font-bold text-blue-600">{{ stats.students }}명</div>
+                    <div class="text-gray-600 mt-2">참여 학생</div>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl font-bold text-blue-600">{{ stats.enrollments }}건</div>
+                    <div class="text-gray-600 mt-2">수강 완료</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 발상의 전환 -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">💡 관점의 전환</h2>
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="bg-gray-200 rounded-2xl p-8 text-center opacity-60">
+                    <div class="text-6xl mb-4">❌</div>
+                    <h3 class="text-xl font-bold text-gray-600 mb-4">기존 관점</h3>
+                    <p class="text-gray-500">어르신 = 돌봄 받아야 할 대상</p>
+                    <p class="text-gray-500">대학생 = 일방적 봉사자</p>
+                    <p class="text-gray-500 mt-4">"해드려야 할 분들"</p>
+                </div>
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 text-center border-2 border-blue-400">
+                    <div class="text-6xl mb-4">✅</div>
+                    <h3 class="text-xl font-bold text-blue-600 mb-4">지혜나눔터</h3>
+                    <p class="text-gray-700">어르신 = 지혜를 나누는 <strong>선생님</strong></p>
+                    <p class="text-gray-700">대학생 = 배움을 얻는 <strong>학생</strong></p>
+                    <p class="text-blue-600 font-bold mt-4">"배움을 주시는 분들"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 인기 프로그램 -->
+    <section class="py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold">📚 인기 프로그램</h2>
+                <a href="/programs" class="text-blue-600 hover:text-blue-800 font-medium">전체보기 →</a>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {% for program in programs %}
+                <a href="/programs/{{ program.id }}" class="block bg-white rounded-xl shadow-lg overflow-hidden card-hover border border-gray-100">
+                    <div class="h-32 gradient-bg flex items-center justify-center">
+                        <span class="text-6xl">{{ program.image_emoji }}</span>
+                    </div>
+                    <div class="p-4">
+                        <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mb-2">{{ program.category }}</span>
+                        <h3 class="font-bold text-lg mb-2">{{ program.title }}</h3>
+                        <p class="text-gray-600 text-sm mb-3">{{ program.mentor.name }} 선생님</p>
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-gray-500">{{ program.schedule }}</span>
+                            <span class="text-blue-600 font-medium">{{ program.current_students }}/{{ program.max_students }}명</span>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- 어르신 멘토 소개 -->
+    <section class="py-16 bg-amber-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold">👨‍🏫 어르신 멘토</h2>
+                <a href="/mentors" class="text-blue-600 hover:text-blue-800 font-medium">전체보기 →</a>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {% for mentor in mentors %}
+                <a href="/mentors/{{ mentor.id }}" class="block bg-white rounded-xl shadow-lg p-6 card-hover text-center">
+                    <div class="text-6xl mb-4">{{ mentor.profile_image }}</div>
+                    <h3 class="font-bold text-lg">{{ mentor.name }}</h3>
+                    <p class="text-blue-600 text-sm mb-2">{{ mentor.expertise }}</p>
+                    <p class="text-gray-500 text-sm">경력 {{ mentor.experience_years }}년</p>
+                    <p class="text-gray-400 text-xs mt-2">{{ mentor.location }}</p>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-20 gradient-bg text-white">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">나눌 수 있는 지혜가 있으신가요?</h2>
+            <p class="text-xl text-white/90 mb-8">
+                요리, 농사, 공예, 예절... 무엇이든 좋습니다.<br>
+                어르신의 경험이 젊은 세대에게 소중한 배움이 됩니다.
+            </p>
+            <a href="/mentors/register" class="inline-block bg-yellow-400 text-gray-900 px-10 py-4 rounded-full font-bold text-lg hover:bg-yellow-300 transition">
+                멘토로 참여하기 →
+            </a>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-start">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <span class="text-3xl">🎓</span>
+                        <span class="text-xl font-bold">지혜나눔터</span>
+                    </div>
+                    <p class="text-gray-400 max-w-md">
+                        어르신이 선생님이 되는 세대교류 플랫폼.<br>
+                        경국대학교 G-AFC 고령친화사업단 운영
+                    </p>
+                </div>
+                <div class="text-right text-gray-400">
+                    <p>국립경국대학교 RISE 사업단</p>
+                    <p>G-AFC 고령친화 아이디어 공모전 출품작</p>
+                    <p class="mt-4">팀 실버브릿지 | 한성주</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

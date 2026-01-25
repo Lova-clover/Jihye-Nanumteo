@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 대시보드 - 지혜나눔터</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #4A90D9 0%, #5BA3E0 100%); }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-gray-800 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="/" class="flex items-center space-x-2">
+                        <span class="text-2xl">🎓</span>
+                        <span class="text-lg font-bold">지혜나눔터</span>
+                    </a>
+                    <span class="bg-yellow-500 text-gray-900 text-xs px-2 py-1 rounded">관리자</span>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="/admin" class="text-yellow-400 font-bold">대시보드</a>
+                    <a href="/admin/enrollments" class="hover:text-yellow-200 transition">수강 관리</a>
+                    <a href="/" class="hover:text-yellow-200 transition">사이트 보기</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-8">📊 G-AFC 관리자 대시보드</h1>
+
+        <!-- 통계 카드 -->
+        <div class="grid md:grid-cols-5 gap-6 mb-8">
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">어르신 멘토</p>
+                        <p class="text-3xl font-bold text-blue-600">{{ stats.mentors }}명</p>
+                    </div>
+                    <span class="text-4xl">👨‍🏫</span>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">개설 프로그램</p>
+                        <p class="text-3xl font-bold text-green-600">{{ stats.programs }}개</p>
+                    </div>
+                    <span class="text-4xl">📚</span>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">참여 학생</p>
+                        <p class="text-3xl font-bold text-purple-600">{{ stats.students }}명</p>
+                    </div>
+                    <span class="text-4xl">👩‍🎓</span>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">전체 수강</p>
+                        <p class="text-3xl font-bold text-amber-600">{{ stats.enrollments }}건</p>
+                    </div>
+                    <span class="text-4xl">📝</span>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">승인 대기</p>
+                        <p class="text-3xl font-bold text-red-600">{{ stats.pending }}건</p>
+                    </div>
+                    <span class="text-4xl">⏳</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-8">
+            <!-- 최근 수강 신청 -->
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold">📋 최근 수강 신청</h2>
+                    <a href="/admin/enrollments" class="text-blue-600 hover:text-blue-800 text-sm">전체보기 →</a>
+                </div>
+                <div class="space-y-3">
+                    {% for enrollment in recent_enrollments %}
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div class="flex items-center">
+                            <span class="text-2xl mr-3">{{ enrollment.program.image_emoji }}</span>
+                            <div>
+                                <p class="font-medium">{{ enrollment.student.name }} - {{ enrollment.program.title }}</p>
+                                <p class="text-xs text-gray-500">{{ enrollment.enrolled_at.strftime('%Y-%m-%d %H:%M') }}</p>
+                            </div>
+                        </div>
+                        <span class="text-sm px-3 py-1 rounded-full {% if enrollment.status == '신청' %}bg-yellow-100 text-yellow-800{% elif enrollment.status == '승인' %}bg-green-100 text-green-800{% else %}bg-blue-100 text-blue-800{% endif %}">
+                            {{ enrollment.status }}
+                        </span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- 프로그램 현황 -->
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-xl font-bold mb-4">📊 프로그램 현황</h2>
+                <div class="space-y-4">
+                    {% for program in programs %}
+                    <div class="border-b pb-4 last:border-b-0">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center">
+                                <span class="text-2xl mr-3">{{ program.image_emoji }}</span>
+                                <div>
+                                    <p class="font-medium">{{ program.title }}</p>
+                                    <p class="text-xs text-gray-500">{{ program.mentor.name }} 선생님</p>
+                                </div>
+                            </div>
+                            <span class="text-sm {% if program.status == '모집중' %}text-green-600{% else %}text-gray-500{% endif %}">{{ program.status }}</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="flex-1 bg-gray-200 rounded-full h-2 mr-3">
+                                <div class="bg-blue-600 h-2 rounded-full" style="width: {{ (program.current_students / program.max_students * 100)|int }}%"></div>
+                            </div>
+                            <span class="text-sm text-gray-600">{{ program.current_students }}/{{ program.max_students }}명</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- 빠른 액션 -->
+        <div class="mt-8 bg-white rounded-xl shadow-md p-6">
+            <h2 class="text-xl font-bold mb-4">⚡ 빠른 액션</h2>
+            <div class="grid md:grid-cols-4 gap-4">
+                <a href="/admin/enrollments" class="block p-4 bg-yellow-50 rounded-lg text-center hover:bg-yellow-100 transition">
+                    <span class="text-3xl block mb-2">✅</span>
+                    <p class="font-medium">수강 신청 승인</p>
+                    <p class="text-sm text-gray-500">{{ stats.pending }}건 대기중</p>
+                </a>
+                <a href="/mentors" class="block p-4 bg-blue-50 rounded-lg text-center hover:bg-blue-100 transition">
+                    <span class="text-3xl block mb-2">👨‍🏫</span>
+                    <p class="font-medium">멘토 관리</p>
+                    <p class="text-sm text-gray-500">{{ stats.mentors }}명 활동중</p>
+                </a>
+                <a href="/programs" class="block p-4 bg-green-50 rounded-lg text-center hover:bg-green-100 transition">
+                    <span class="text-3xl block mb-2">📚</span>
+                    <p class="font-medium">프로그램 관리</p>
+                    <p class="text-sm text-gray-500">{{ stats.programs }}개 운영중</p>
+                </a>
+                <a href="/" class="block p-4 bg-purple-50 rounded-lg text-center hover:bg-purple-100 transition">
+                    <span class="text-3xl block mb-2">🌐</span>
+                    <p class="font-medium">사이트 미리보기</p>
+                    <p class="text-sm text-gray-500">방문자 화면 확인</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-gray-800 text-white py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-400">
+            <p>지혜나눔터 관리자 | 국립경국대학교 G-AFC 고령친화사업단</p>
+        </div>
+    </footer>
+</body>
+</html>
