@@ -140,18 +140,26 @@ python main.py
 
 ```
 jihye-nanumteo/
-├── mvp/                      # MVP 웹 애플리케이션
-│   ├── main.py              # FastAPI 메인 서버
-│   ├── models.py            # 데이터베이스 모델
-│   ├── database.py          # DB 설정
-│   ├── requirements.txt     # Python 의존성
-│   ├── static/              # 정적 파일
-│   └── templates/           # HTML 템플릿
-├── create_final_ppt.py      # 최종 PPT 생성 스크립트
-├── create_final_proposal.py # 최종 제안서 생성 스크립트
-├── 최종_PPT.pptx            # 생성된 PPT (10슬라이드)
-├── 최종_제안서.docx         # 생성된 제안서 (A4 5매)
-└── README.md                # 프로젝트 문서
+├── mvp/                           # MVP 웹 애플리케이션
+│   ├── main.py                   # FastAPI 메인 서버 (모델 포함)
+│   ├── requirements.txt          # Python 의존성
+│   ├── wisdom_sharing.db         # SQLite 데이터베이스
+│   └── templates/                # HTML 템플릿
+│       ├── home.html            # 메인 페이지
+│       ├── programs/            # 프로그램 관련 페이지
+│       ├── mentors/             # 멘토 관련 페이지
+│       └── admin/               # 관리자 페이지
+├── 제출한 것/                      # 공모전 제출 파일
+│   ├── 최종_PPT.pptx             # 최종 PPT (10슬라이드)
+│   ├── 최종_제안서.docx          # 최종 제안서 (A4 5매)
+│   ├── 최종_PPT.pdf
+│   ├── 최종_제안서.pdf
+│   ├── 고령친화 아이디어_한성주(실버브릿지).pdf  # 병합된 최종 제출본
+│   ├── 지혜나눔터_MVP_시연.mp4   # 데모 영상
+│   └── G-AFC 고령친화 아이디어 공모전 신청서.*
+├── .gitignore                    # Git 제외 파일 목록
+├── LICENSE                       # MIT 라이선스
+└── README.md                     # 프로젝트 문서
 ```
 
 ---
