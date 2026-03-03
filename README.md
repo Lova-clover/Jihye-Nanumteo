@@ -1,165 +1,236 @@
 <div align="center">
 
 # 🌟 지혜나눔터 (Jihye Nanumteo)
-### 70년의 지혜가 빛나는 순간, 세대를 이어가는 배움의 장  
-**어르신이 선생님이 되는 세대교류 플랫폼 (MVP)**
+
+### 70년의 지혜가 빛나는 순간, 세대를 이어가는 배움의 장
+
+**어르신이 선생님이 되는 세대교류 플랫폼**
 
 [![Python](https://img.shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.104.1-green.svg)](https://fastapi.tiangolo.com/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-<a href="#-프로젝트-한눈에-보기">한눈에 보기</a> •
-<a href="#-핵심-기능-mvp">핵심 기능</a> •
-<a href="#-아키텍처--데이터-모델">아키텍처</a> •
-<a href="#-로컬-실행">로컬 실행</a> •
-<a href="#-공모전-참여-및-회고">공모전/회고</a>
+[🎯 프로젝트 소개](#-프로젝트-소개) • [🖼️ MVP 화면](#-mvp-화면-미리보기) • [🚀 시작하기](#-시작하기) • [📊 기술 스택](#-기술-스택) • [🏆 공모전 출품](#-공모전-출품)
 
 </div>
 
 ---
 
-## 🔎 프로젝트 한눈에 보기
+## 📖 프로젝트 소개
 
-> "이거 아는 사람이 나밖에 없어. 내가 가면 이 맛도 사라지는 거지."  
-> — 안동 하회마을 할머니의 안동식혜 레시피를 전수하며
+> "이거 아는 사람이 나밖에 없어. 내가 가면 이 맛도 사라지는 거지."
+>  
+> 안동 하회마을 어르신의 안동식혜 레시피 전수 이야기에서 시작했습니다.
 
-**지혜나눔터**는 고령자를 ‘수혜자’가 아니라 **‘선생님(멘토)’**으로 전환해  
-대학생에게 전통 지식/기술을 전수하는 **세대교류 프로그램 플랫폼**의 MVP입니다.
+**지혜나눔터**는 고령자를 '수혜자'가 아닌 '선생님'으로 전환하는 세대교류 프로그램입니다.
 
-### 해결하려는 문제
-- **고령자**: 사회적 역할 상실, 경제적 어려움, 고립감
-- **청년**: 지역 전통 지식 단절, 피상적인 교류
-- **지역사회**: 무형문화유산/생활기술의 소멸 위험
+### 🎯 해결하고자 하는 문제
 
-### 솔루션(요약)
-| 대상 | 역할 | 가치 |
-|---|---|---|
-| 어르신 멘토 | 경험/지혜 전수 | 사회적 역할 회복 + 활동비(운영 정책에 따라) |
-| 대학생 멘티 | 프로그램 수강 | 실질 기술 습득 + 세대 이해 |
-| 지역사회 | 지식 보존 | 지속 가능한 전통 지식 아카이브 |
+- **고령자**: 사회적 역할 상실, 고립감, 경제적 기회 부족
+- **청년 세대**: 전통 지식 단절, 피상적인 세대교류
+- **지역사회**: 무형문화유산의 소멸 위기
 
----
+### 💡 핵심 솔루션
 
-## ✨ 핵심 기능 (MVP)
-
-- **프로그램 목록/상세 조회**
-- **프로그램 신청(Enrollment)**
-- **멘토 목록/상세 조회**
-- **멘토 등록(폼 기반)**
-- **관리자 대시보드(승인/수료 처리)**
-- **시연용 더미 데이터 자동 시드(Seed)**
-
-> ⚠️ MVP 특성상 인증/권한(로그인)은 포함하지 않았습니다. `/admin`은 데모용입니다.
+| 구분 | 역할 | 기대 효과 |
+|------|------|-----------|
+| **어르신 멘토** | 지혜와 경험 전수 | 사회적 역할 회복 + 활동비 지급 |
+| **대학생 멘티** | 자발적 수강 참여 | 실질적 기술 습득 + 세대 이해 |
+| **G-AFC 센터** | 기획/운영/매칭 | 지역사회 연계 + 품질 관리 |
 
 ---
 
-## 🧩 아키텍처 & 데이터 모델
+## ✨ 핵심 가치
 
-### 기술 구성
-- **FastAPI**: API/SSR 라우팅
-- **Jinja2**: 서버사이드 템플릿 렌더링
-- **SQLAlchemy + SQLite**: 관계형 데이터 모델링/저장
+### 🔄 관점의 전환
 
-### 엔티티 관계(ER 개요)
-- `Mentor (1) ── (N) Program`
-- `Student (1) ── (N) Enrollment`
-- `Program (1) ── (N) Enrollment`
+```text
+기존: 어르신 = 돌봄 대상
+전환: 어르신 = 지혜를 나누는 선생님
+```
+
+### 🏛️ 안동·예천 특화 프로그램
+
+- 🍲 전통 음식: 안동찜닭, 헛제사밥, 간고등어, 안동식혜
+- 🎎 예절·다도: 종갓집 예절, 전통 다도
+- 🌱 텃밭 농사: 제철 농사법, 발효식품
+- 🎨 전통 공예: 한지공예, 매듭, 목공예
+
+### 🎓 참여 방식
+
+- **대학생**: 수강 신청 형태로 자발적 참여
+- **어르신**: 멘토로 참여하고 활동비 지급
+- **운영기관**: G-AFC 센터가 일정/매칭/품질 관리
 
 ---
 
-## 🚀 로컬 실행
+## 🖼️ MVP 화면 미리보기
 
-### 준비물
-- Python **3.11+**
+### 1) 사용자 화면
+
+| 홈페이지 | 프로그램 목록 |
+|---|---|
+| <img src="images/homepage.jpeg" alt="홈페이지" width="100%"> | <img src="images/program.jpeg" alt="프로그램 목록" width="100%"> |
+
+| 멘토 목록 | 멘토 등록 |
+|---|---|
+| <img src="images/mentor.jpeg" alt="멘토 목록" width="100%"> | <img src="images/mentor_register.jpeg" alt="멘토 등록" width="100%"> |
+
+### 2) 관리자 화면
+
+| 관리자 대시보드 | 수강 신청 관리 |
+|---|---|
+| <img src="images/admin_dashboard.jpeg" alt="관리자 대시보드" width="100%"> | <img src="images/course_registration_management.jpeg" alt="수강 신청 관리" width="100%"> |
+
+### ✅ 구현 완료 기능
+
+- 홈페이지 랜딩 및 핵심 지표 노출
+- 카테고리 기반 프로그램 탐색/상세 조회
+- 멘토 조회 및 멘토 등록 신청
+- 수강 신청(중복 신청/정원 마감 처리 포함)
+- 관리자 대시보드 및 신청 승인/수료 처리
+
+---
+
+## 🚀 시작하기
+
+### Prerequisites
+
+- Python 3.11+
 - Git
 
-### 설치 & 실행
+### Installation
+
 ```bash
-# 1) 클론
+# 1) 저장소 클론
 git clone https://github.com/Lova-clover/Jihye-Nanumteo.git
 cd Jihye-Nanumteo
 
-# 2) 가상환경
+# 2) 가상환경 생성 및 활성화
 python -m venv .venv
 
 # Windows
 .venv\Scripts\activate
 
-# macOS/Linux
+# Mac/Linux
 source .venv/bin/activate
 
 # 3) 의존성 설치
-python -m pip install -r mvp/requirements.txt
+pip install -r mvp/requirements.txt
+```
 
-# 4) 실행 (중요: 템플릿 경로 때문에 mvp 폴더에서 실행 권장)
+### Running the Application
+
+```bash
 cd mvp
 python main.py
-````
+```
 
-브라우저에서 접속: [http://localhost:8000](http://localhost:8000)
-
-### 주요 라우트
-
-* `/` : 홈
-* `/programs` : 프로그램 목록
-* `/programs/{id}` : 프로그램 상세
-* `/mentors` : 멘토 목록
-* `/mentors/register` : 멘토 등록
-* `/admin` : 관리자 대시보드(데모)
+브라우저에서 `http://localhost:8000` 접속
 
 ---
 
-## 📁 폴더 구조
+## 📊 기술 스택
 
-> 아래 구조는 “공개 레포 기준”입니다.
-> 실행 시 SQLite DB 파일은 로컬에서 자동 생성될 수 있습니다.
+### Backend
+
+- **FastAPI** 0.104.1
+- **SQLAlchemy** 2.0.23
+- **SQLite**
+- **Jinja2**
+
+### Frontend
+
+- **Tailwind CSS**
+- **Vanilla JavaScript**
+
+### Design/Docs
+
+- **Python-PPTX** (PPT 자동 생성)
+- **Python-DOCX** (제안서 자동 생성)
+
+---
+
+## 📁 프로젝트 구조
 
 ```text
 Jihye-Nanumteo/
 ├── mvp/
 │   ├── main.py
 │   ├── requirements.txt
+│   ├── wisdom_sharing.db
 │   └── templates/
-├── LICENSE
+│       ├── home.html
+│       ├── programs/
+│       ├── mentors/
+│       └── admin/
+├── images/
+│   ├── homepage.jpeg
+│   ├── program.jpeg
+│   ├── mentor.jpeg
+│   ├── mentor_register.jpeg
+│   ├── admin_dashboard.jpeg
+│   └── course_registration_management.jpeg
+├── 제출한 것/
+│   ├── 최종_PPT.pptx
+│   ├── 최종_제안서.docx
+│   ├── 최종_PPT.pdf
+│   ├── 최종_제안서.pdf
+│   ├── 고령친화 아이디어_한성주(실버브릿지).pdf
+│   ├── 지혜나눔터_MVP_시연.mp4
+│   └── G-AFC 고령친화 아이디어 공모전 신청서.*
 ├── .gitignore
+├── LICENSE
 └── README.md
 ```
 
 ---
 
-## 🏆 공모전 참여 및 회고
+## 🏆 공모전 출품
 
 ### G-AFC 고령친화 아이디어 공모전 (2026)
 
-* **출품 부문**: 고령자 대상 프로그램·서비스 아이디어
-* **제출일**: 2026-01-25
-* **주최**: 국립경국대학교 G-AFC 센터
-* **결과**: **미선정**
-
-### 회고(핵심만)
-
-**왜 미선정이었을 가능성이 큰가**
-
-* 정량 KPI(참여율/재참여율/성과지표) 설계가 부족했다
-* 운영 관점(예산·인력·리스크·지속가능성) 설득력이 더 필요했다
-* 확장(지역 확산 모델)에서 “수치 기반” 근거가 부족했다
-
-**그럼에도 남은 성과(기술적으로)**
-
-* FastAPI + SQLAlchemy 기반 관계형 모델 설계
-* 멘토/프로그램/신청/관리자 플로우를 실제 동작 MVP로 구현
-* 제출물로 끝내지 않고 “실행 가능한 프로토타입”까지 완성
+- **출품 부문**: 고령자 대상 프로그램·서비스 아이디어
+- **제출일**: 2026년 1월 25일
+- **주최**: 국립경국대학교 G-AFC 센터
+- **결과**: 미선정
 
 ---
 
+## 📝 간단 회고
 
-## 👨‍💻 팀
+기획에서 끝내지 않고 실제로 동작하는 MVP를 구현한 점은 분명한 성과였습니다.
+다만 공모전 관점에서는 아이디어와 구현 완성도 외에, 다음 요소를 더 강하게 증명했어야 했습니다.
 
-* 팀: **실버브릿지 (SilverBridge)**
-* 대표: 한성주
+- **실증 데이터**: 인터뷰/파일럿 운영 결과/재참여율 같은 근거
+- **실행 설계 밀도**: 리스크 대응, 지속 가능성, 운영 체계 구체화
+- **평가 언어**: 무엇을 만들었는지보다 왜 효과가 나는지에 대한 명확한 증명
+
+자세한 회고는 아래 Velog 글에서 확인할 수 있습니다.
+
+- [[회고] 지혜나눔터, 기획·MVP까지 했는데 공모전에서 떨어진 이유 🤔](https://velog.io/@lova-clover/%ED%9A%8C%EA%B3%A0-%EC%A7%80%ED%98%9C%EB%82%98%EB%88%94%ED%84%B0-%EA%B8%B0%ED%9A%8DMVP%EA%B9%8C%EC%A7%80-%ED%96%88%EB%8A%94%EB%8D%B0-%EA%B3%B5%EB%AA%A8%EC%A0%84%EC%97%90%EC%84%9C-%EB%96%A8%EC%96%B4%EC%A7%84-%EC%9D%B4%EC%9C%A0)
+
+---
+
+## 👨‍💻 팀 정보
+
+**팀 실버브릿지 (Team SilverBridge)**
+
+- **대표**: 한성주
+- **소속**: 연세대학교 미래캠퍼스
 
 ---
 
 ## 📄 라이선스
 
-MIT License — 자세한 내용은 [LICENSE](LICENSE) 참고
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+<div align="center">
+
+**Made with ❤️ by Team SilverBridge**
+
+*어르신의 지혜가 세대를 잇는 배움이 됩니다.*
+
+</div>
